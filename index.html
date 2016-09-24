@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click-Thru</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="src/ripple.js"></script>
+
+    <style>
+    .ripple-container {
+        background-clip: content-box;
+        height: 100%;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    .ripple {
+        background-color: #bbf;
+        border-radius: 100%;
+        margin: 0;
+        position: absolute;
+        transform: scale(0);
+    }
+    .ripple.animate {
+        animation-name: ripple-animation;
+        animation-duration: 1s;
+    }
+    </style>
+
+</head>
+<body>
+
+<div class="ping-animation"></div>
+
+<div style="height:30px;width:100px;background-color:#eee;">
+    <div class="ripple-container" data-ripple-click>
+    </div>
+</div>
+
+</body>
+</html>
