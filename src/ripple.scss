@@ -1,0 +1,29 @@
+.ripple-container {
+    background-clip: content-box;
+    border-radius: inherit;
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0);
+    width: 100%;
+}
+.ripple {
+    background-color: #bbf;
+    border-radius: 50%;
+    margin: 0;
+    position: absolute;
+    transform: scale(0);
+
+    &.animate {
+        animation-name: ripple-animation;
+        animation-duration: 1s;
+    }
+}
+@keyframes ripple-animation {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}

@@ -5,7 +5,7 @@
     position: relative;
     width: 30px;
 
-    &:before {
+    &:before, &:after {
         animation-name: ping-animation;
         animation-duration: 3s;
         animation-iteration-count: infinite;
@@ -21,20 +21,16 @@
     }
 
     &:after {
-        animation-name: ping-animation;
-        animation-duration: 3s;
         animation-delay: 0.5s;
-        animation-iteration-count: infinite;
-        background: transparent;
-        border: dotted 1px;
-        border-color: inherit;
-        border-radius: 50%;
-        content: " ";
-        display: block;
-        height: 100%;
-        position: absolute;
-        width: 100%;
     }
+}
+.ping-animation-light {
+    @extend .ping-animation;
+    border-color: #fff;
+}
+.ping-animation-dark {
+    @extend .ping-animation;
+    border-color: #000;
 }
 
 @keyframes ping-animation {

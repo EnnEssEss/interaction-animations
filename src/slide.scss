@@ -1,0 +1,30 @@
+$transition: transform 1s;
+
+.slide-horizontal {
+    transition: $transition;
+    &.in {
+        transform: translateX(0);
+    }
+}
+.slide-vertical {
+    transition: $transition;
+    &.in {
+        transform: translateY(0);
+    }
+}
+.slide-down {
+    @extend .slide-vertical;
+    transform: translateY(-100%);
+}
+.slide-up {
+    @extend .slide-vertical;
+    transform: translateY(100%);
+}
+.slide-right {
+    @extend .slide-horizontal;
+    transform: translateX(-100%);
+}
+.slide-left {
+    @extend .slide-horizontal;
+    transform: translateX(100%);
+}
