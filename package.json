@@ -2,10 +2,14 @@
   "name": "interaction-animations",
   "version": "1.0.0",
   "description": "Components to make it easier to build mocked-up demos",
-  "main": "index.js",
   "scripts": {
-    "start": "lite-server",
+    "build": "npm install && gulp",
+    "start": "gulp watch",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EnnEssEss/interaction-animations.git"
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +27,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^2.0.0",
-    "lite-server": "^2.2.2"
+    "gulp-uglify": "^2.0.0"
   }
 }
