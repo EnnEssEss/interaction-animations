@@ -30,7 +30,11 @@ function minifyCss () {
 }
 
 function minifyJs () {
-    return gulp.src('src/*.js')
+    return gulp.src('src/**/*.js')
+        .pipe(plugins.order([
+            'src/makePlugin.js',
+            'src/**/*.js'
+        ]))
         .pipe(plugins.concat('jquery.interaction-animations.js'))
         .pipe(gulp.dest('dist'))
         .pipe(plugins.uglify())

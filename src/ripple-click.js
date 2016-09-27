@@ -2,6 +2,7 @@
     'use strict';
 
     var pluginName = "rippleClick",
+        PluginConstructor = RippleClick,
         defaults = {};
 
     function RippleClick (element, options) {
@@ -15,8 +16,8 @@
 
     $.extend(RippleClick.prototype, {
         init: function() {
-            this.setupElement();
-            this.bindEvents();
+            this.setupElement()
+                .bindEvents();
         },
         setupElement: function () {
             this.initialPosition = $(this.$element).css('position');
@@ -26,46 +27,51 @@
             if (!this.initialPosition || this.initialPosition === 'static') {
                 this.$element.css({position: 'relative'});
             }
+
+            return this;
         },
         bindEvents: function () {
             var self = this;
-            $(this.element).on('click.'+this._name, function (e) {
+            this.$element.on('click.'+this._name, function (e) {
                 RippleClick.prototype.addRippleElement.call(self, e);
             });
+            return this;
         },
         addRippleElement: function (e) {
             var d = (Math.max(this.$rippleContainer.outerHeight(), this.$rippleContainer.outerWidth())),
                 x = e.pageX - this.$rippleContainer.offset().left - d/2,
-                y = e.pageY - this.$rippleContainer.offset().top - d/2;
+                y = e.pageY - this.$rippleContainer.offset().top - d/2,
+                css = {
+                    height: d,
+                    width: d,
+                    left: x,
+                    top: y
+                };
 
+            if (this.settings.backgroundColor) {
+                css['background-color'] = this.settings.backgroundColor;
+            }
             if (this.$rippleElement) {
                 this.$rippleElement.remove();
             }
-
             this.$rippleElement = $('<span class="ripple"></span>')
                 .appendTo(this.$rippleContainer)
-                .css({height: d, width: d, left: x, top: y});
+                .css(css)
+                .addClass('animate');
 
-            if (this.settings.backgroundColor) {
-                this.$rippleElement.css({'background-color': this.settings.backgroundColor});
+            return this;
+        },
+        destroy:  function () {
+            this.$element.off('.'+this._name);
+            if (this.$rippleContainer) {
+                this.$rippleContainer.remove();
+                this.$rippleContainer = null;
+                this.$rippleElement = null;
             }
-
-            this.$rippleElement.addClass('animate');
         }
     });
 
-    // A really lightweight plugin wrapper around the constructor,
-    // preventing against multiple instantiations
-    $.fn[pluginName] = function (options, arg) {
-        return this.each(function() {
-            var instance = $.data(this, 'plugin_' + pluginName);
-            if (!instance) {
-                $.data(this, 'plugin_' + pluginName, new RippleClick(this, options));
-            } else if (typeof options === 'string' && typeof instance[options] === 'function') {
-                instance[options](arg);
-            }
-        });
-    };
+    $.makePlugin(pluginName, RippleClick);
 
     $(document).ready(function () {
         $('[data-ripple-click]').each(function () {

@@ -1,12 +1,12 @@
 (function ($, window, document, undefined) {
     'use strict';
 
-    var pluginName = "animateSlideIn",
+    var pluginName = "slideable",
         defaults = {
             direction: 'left'
         };
 
-    function SlideIn (element, options) {
+    function Slidable (element, options) {
         this.element = element;
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
@@ -14,31 +14,24 @@
         this.init();
     }
 
-    $.extend(SlideIn.prototype, {
+    $.extend(Slidable.prototype, {
         init: function () {
             $(this.element).addClass('out slide-' + this.settings.direction);
         },
         slideIn: function () {
             $(this.element).addClass('in');
+            return this;
         },
         slideOut: function () {
             $(this.element).removeClass('in');
+            return this;
         }
     });
 
-    $.fn[pluginName] = function (options, arg) {
-        return this.each(function() {
-            var instance = $.data(this, 'plugin_' + pluginName);
-            if (!instance) {
-                $.data(this, 'plugin_' + pluginName, new SlideIn(this, options));
-            } else if (typeof options === 'string' && typeof instance[options] === 'function') {
-                instance[options](arg);
-            }
-        });
-    };
+    $.makePlugin(pluginName, Slidable);
 
     $(document).ready(function () {
-        $('[data-animate-slide-in]').each(function () {
+        $('[data-slideable]').each(function () {
             var element = $(this);
             element[pluginName]({direction: element.data(pluginName)});
         });
