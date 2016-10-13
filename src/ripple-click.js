@@ -3,7 +3,9 @@
 
     var pluginName = "rippleClick",
         PluginConstructor = RippleClick,
-        defaults = {};
+        defaults = {
+            cssClass: 'ripple-container'
+        };
 
     function RippleClick (element, options) {
         this.element = element;
@@ -21,7 +23,7 @@
         },
         setupElement: function () {
             this.initialPosition = $(this.$element).css('position');
-            this.$rippleContainer = $('<div class="ripple-container"></div>').
+            this.$rippleContainer = $('<div class="' + this.settings.cssClass + '"></div>').
                 prependTo(this.element);
 
             if (!this.initialPosition || this.initialPosition === 'static') {

@@ -2,10 +2,13 @@
     'use strict';
 
     var pluginName = "pingable",
+        allowedAnimations = ['ping', 'pulse'],
         defaults = {
             height: 40,
             width: 40,
-            doHide: false
+            doHide: false,
+            color: null,
+            animationType: 'ping'
         };
 
     function Pingable (element, options) {
@@ -23,9 +26,16 @@
                 .toggle(!this.settings.doHide);
         },
         setupElement: function () {
+            var animationType = allowedAnimations.indexOf(this.settings.animationType) > 0 ? this.settings.animationType : this._defaults.animationType;
+
             this.initialPosition = $(this.$element).css('position');
-            this.$pingElement = $('<div style="display:none;" class="ping-animation"></div>')
+            this.$pingElement = $('<div style="display:none;" class="' + animationType + '-animation"></div>')
                 .appendTo(this.element);
+            if (this.settings.color) {
+                this.$pingElement.css({
+                    'border-color': this.settings.color
+                });
+            }
             if (!this.initialPosition || this.initialPosition === 'static') {
                 $(this.element).css({position: 'relative'});
             }

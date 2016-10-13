@@ -3,6 +3,11 @@
 
     var pluginName = "tooltipTarget",
         defaults = {
+            offset: {
+                top: 0,
+                left: 0
+            },
+            cssClass: 'tooltip-container'
         };
 
     function TooltipTarget (element, options) {
@@ -20,7 +25,7 @@
 
     $.extend(TooltipTarget.prototype, {
         init: function () {
-            this.$tooltipContainer = $('<div class="tooltip-container"></div>')
+            this.$tooltipContainer = $('<div class="' + this.settings.cssClass + '"></div>')
                 .appendTo('body')
                 .html($(this.settings.selector).html());
 
@@ -44,8 +49,8 @@
                 elemHeight = $(this.element).height();
             this.$tooltipContainer
                 .css({
-                    top: elemOffset.top + elemHeight,
-                    left: elemOffset.left
+                    top: elemOffset.top + elemHeight + this.settings.offset.top,
+                    left: elemOffset.left + this.settings.offset.left
                 })
                 .show();
         },
