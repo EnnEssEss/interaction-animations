@@ -11,11 +11,12 @@
     "type": "git",
     "url": "https://github.com/EnnEssEss/interaction-animations.git"
   },
-  "author": "",
+  "author": "Nicole Sturm",
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.1.1"
   },
+  "main": "./dist/jquery.interaction-animations.min.js",
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",

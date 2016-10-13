@@ -51,3 +51,5 @@ dist
 Network Trash Folder
 Temporary Items
 .apdisk
+
+*.sublime-workspace
